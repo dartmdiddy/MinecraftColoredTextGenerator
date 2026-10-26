@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101411">
+  <title>Blocktype - Minecraft Gradient Text Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="site-shell">
+    <div class="vibe-banner"><span class="vibe-spark" aria-hidden="true">✳</span> 100% VIBE CODED <span class="banner-divider"></span> BUILT FOR BLOCK-BY-BLOCK CREATIVITY</div>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Blocktype home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>blocktype<span class="brand-period">.</span></span></a>
+      <div class="topbar-note"><span class="online-dot"></span> MINECRAFT TEXT STUDIO</div>
+      <a class="github-link" href="https://github.com" target="_blank" rel="noreferrer" aria-label="Visit GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.929.43.372.823 1.102.823 2.222v3.293c0 .319.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg><span>GitHub</span></a>
+    </header>
+
+    <main id="top">
+      <section class="intro" aria-labelledby="page-title">
+        <div class="intro-copy"><div class="eyebrow"><span>01</span> YOUR SERVER, YOUR COLORS</div><h1 id="page-title">Give your words<br>some <span>blocky</span> color.</h1><p>Build a smooth, multi-color gradient and bring it straight into Minecraft chat.</p></div>
+        <div class="version-stamp"><span class="stamp-icon">✦</span><span>HEX COLORS<br><strong>MC 1.16+</strong></span></div>
+      </section>
+
+      <section class="workbench" aria-label="Gradient text editor">
+        <div class="editor-column">
+          <section class="panel text-panel"><div class="section-heading"><span class="step-number">01</span><label for="txt">Your message</label><span class="section-hint">UP TO 500 CHARACTERS</span></div><input class="message-input" type="text" id="txt" value="NightfallNetwork" placeholder="Type something good..." maxlength="500" spellcheck="false" autocomplete="off"></section>
+          <section class="panel colors-panel"><div class="section-heading"><span class="step-number">02</span><h2>Color stops</h2><span id="count-label" class="section-hint">3 COLORS</span></div><div class="stops-grid" id="stops"></div></section>
+          <section class="panel format-panel"><div class="section-heading"><span class="step-number">03</span><h2>Style it</h2><span class="section-hint">OPTIONAL</span></div><div class="fmt-grid">
+            <button class="fmt-chip" data-code="l" aria-pressed="false"><span class="fmtc">&amp;l</span><span class="fmtp bold">Bold</span></button><button class="fmt-chip" data-code="o" aria-pressed="false"><span class="fmtc">&amp;o</span><span class="fmtp italic">Italic</span></button><button class="fmt-chip" data-code="n" aria-pressed="false"><span class="fmtc">&amp;n</span><span class="fmtp underline">Underline</span></button><button class="fmt-chip" data-code="m" aria-pressed="false"><span class="fmtc">&amp;m</span><span class="fmtp strike">Strike</span></button><button class="fmt-chip" data-code="k" aria-pressed="false"><span class="fmtc">&amp;k</span><span class="fmtp obf">Obfuscated</span></button>
+          </div></section>
+        </div>
+
+        <div class="preview-column">
+          <section class="preview-panel" aria-labelledby="preview-title"><div class="preview-topline"><div><span class="live-indicator"></span><span id="preview-title" class="preview-kicker">LIVE PREVIEW</span></div><span class="preview-platform">MINECRAFT CHAT</span></div>
+            <div class="game-window"><div class="game-sky" aria-hidden="true"><span class="pixel-star star-one"></span><span class="pixel-star star-two"></span><span class="pixel-star star-three"></span><span class="pixel-moon"></span></div><div class="game-horizon" aria-hidden="true"><span class="hill hill-back"></span><span class="hill hill-front"></span><span class="grass-line"></span></div><div class="chat-message"><span class="chat-prefix">&lt;</span><span class="chat-player">Player</span><span class="chat-prefix">&gt;</span><span id="preview" aria-live="polite"></span></div><div class="chat-cursor" aria-hidden="true"></div><div class="game-coords">OVERWORLD <span>·</span> ONLINE</div></div>
+            <div class="preview-caption"><span id="preview-char-count">16 CHARACTERS</span><span class="caption-swatch" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>COLOR IN EVERY PIXEL</span></div>
+          </section>
+          <section class="output-panel" aria-labelledby="output-title"><div class="output-heading"><div><div class="output-eyebrow">READY TO PASTE</div><h2 id="output-title">Your formatted text</h2></div><button class="copy-btn" id="copy-btn" title="Copy to clipboard" aria-label="Copy formatted text"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+            <div class="ftabs" role="tablist" aria-label="Output format"><button class="tab active" role="tab" aria-selected="true" data-fmt="amphex">&#RRGGBB</button><button class="tab" role="tab" aria-selected="false" data-fmt="andx">&amp;x</button><button class="tab" role="tab" aria-selected="false" data-fmt="legacy">Legacy</button><button class="tab" role="tab" aria-selected="false" data-fmt="mmd">MiniMessage</button></div>
+            <div class="output-wrap"><div class="output-code" id="code" aria-label="Generated Minecraft formatting code"></div></div><div class="output-footer"><span><span class="output-dot"></span> AUTO-UPDATING</span><span>SELECT TO COPY MANUALLY</span></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="history-panel" aria-labelledby="history-title"><div class="history-header"><div class="history-title-wrap"><span class="history-icon" aria-hidden="true">↺</span><div><h2 id="history-title">Recent creations</h2><p>Your gradients, saved on this device</p></div><span class="auto-badge">AUTO-SAVED</span></div><button class="hclear" id="clear-all">Clear history</button></div><div id="history-body"></div></section>
+    </main>
+    <footer><span class="footer-mark">B.</span><span>Made for the worlds you build.</span><span class="footer-right">NO SERVER. JUST COLORS.</span></footer>
+  </div>
+
+  <div class="copy-toast" id="toast" role="status"><span class="toast-check">✓</span> Copied to clipboard</div>
+  <div class="picker-popup" id="picker" aria-label="Color picker"><button class="picker-close" id="picker-close" title="Close color picker" aria-label="Close color picker">×</button><div class="picker-canvas-wrap"><canvas id="picker-sv" width="208" height="160" aria-label="Choose saturation and brightness"></canvas><div class="picker-thumb" id="picker-thumb"></div></div><div class="picker-hue-wrap" id="picker-hue-wrap" aria-label="Choose hue"><div class="picker-hue-thumb" id="picker-hue-thumb"></div></div><div class="picker-hex-row"><div class="picker-preview" id="picker-preview"></div><input class="picker-hex-input" id="picker-hex" type="text" maxlength="7" spellcheck="false" placeholder="#ffffff" aria-label="Hex color"></div><div class="picker-presets" id="picker-presets" aria-label="Color presets"></div></div>
+</body>
+</html>
