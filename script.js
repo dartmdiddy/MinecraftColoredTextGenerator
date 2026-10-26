@@ -13,7 +13,30 @@ function hex2hsv(hex){const{r,g,b}=h2r(hex);return rgb2hsv(r,g,b)}
 function gradChars(text,colors){if(!text)return[];if(colors.length<2)return[...text].map(ch=>({ch,color:colors[0]||'#ffffff',rgb:h2r(colors[0]||'#ffffff')}));return[...text].map((ch,i)=>{const t=text.length===1?0:i/(text.length-1),seg=Math.min(Math.floor(t*(colors.length-1)),colors.length-2),rgb=lerp(h2r(colors[seg]),h2r(colors[seg+1]),t*(colors.length-1)-seg);return{ch,color:r2h(rgb),rgb}})}
 function closestLeg(hex){const t=h2r(hex);return LEGACY.reduce((best,item)=>{const c=h2r(item.h),d=Math.hypot(c.r-t.r,c.g-t.g,c.b-t.b);return d<best.d?{...item,d}:best},{d:Infinity,...LEGACY[0]})}
 function fmtCodes(){return[...activeFormats].map(c=>`&${c}`).join('')}
-function buildCode(chars){const fc=fmtCodes();if(fmt==='amphex')return chars.map(({ch,color})=>`&#${color.slice(1).toUpperCase()}${fc}${ch}`).join('');if(fmt==='andx')return chars.map(({ch,rgb})=>{const r=rgb.r.toString(16).padStart(2,'0'),g=rgb.g.toString(16).padStart(2,'0'),b=rgb.b.toString(16).padStart(2,'0');return`&x&${r[0]}&${r[1]}&${g[0]}&${g[1]}&${b[0]}&${b[1]}${fc}${ch}`}).join('');if(fmt==='legacy'){let out='',last='';chars.forEach(({ch,color})=>{const lc=closestLeg(color);if(lc.c!==last){out+=`&${lc.c}`;last=lc.c}out+=fc+ch});return out}return chars.map(({ch,color})=>`<color:${color}>${fc}${ch}</color>`).join('')}
+function buildCode(chars){
+	const formatting=fmtCodes();
+	if(fmt==='mmd'){
+		const tags=[...activeFormats].map(code=>({l:['<bold>','</bold>'],o:['<italic>','</italic>'],n:['<underlined>','</underlined>'],m:['<strikethrough>','</strikethrough>'],k:['<obfuscated>','</obfuscated>']}[code]));
+		let out='',lastColor='',text='';
+		const flush=()=>{if(!text)return;out+=`<color:${lastColor}>${tags.map(tag=>tag[0]).join('')}${text}${tags.slice().reverse().map(tag=>tag[1]).join('')}</color>`;text=''};
+		chars.forEach(({ch,color})=>{if(color!==lastColor){flush();lastColor=color}text+=ch});
+		flush();
+		return out;
+	}
+	let out='',lastColor='';
+	chars.forEach(({ch,color,rgb})=>{
+		const effectiveColor=fmt==='legacy'?closestLeg(color).c:color;
+		if(effectiveColor!==lastColor){
+			if(fmt==='amphex')out+=`&#${color.slice(1).toUpperCase()}`;
+			else if(fmt==='andx'){const r=rgb.r.toString(16).padStart(2,'0'),g=rgb.g.toString(16).padStart(2,'0'),b=rgb.b.toString(16).padStart(2,'0');out+=`&x&${r[0]}&${r[1]}&${g[0]}&${g[1]}&${b[0]}&${b[1]}`}
+			else out+=`&${effectiveColor}`;
+			out+=formatting;
+			lastColor=effectiveColor;
+		}
+		out+=ch;
+	});
+	return out;
+}
 
 function renderPreview(chars){const el=document.getElementById('preview'),count=document.getElementById('preview-char-count');count.textContent=`${[...document.getElementById('txt').value].length} CHARACTERS`;if(!chars.length){el.textContent='Start typing...';el.style.color='rgba(255,255,255,.65)';el.style.fontFamily='var(--sans)';el.style.fontSize='13px';return}el.style.color='';el.style.fontFamily='';el.style.fontSize='';el.style.fontWeight=activeFormats.has('l')?'bold':'normal';el.style.fontStyle=activeFormats.has('o')?'italic':'normal';const d=[];if(activeFormats.has('n'))d.push('underline');if(activeFormats.has('m'))d.push('line-through');el.style.textDecoration=d.length?d.join(' '):'none';el.style.filter=activeFormats.has('k')?'blur(3px)':'none';el.replaceChildren(...chars.map(({ch,color})=>{const span=document.createElement('span');span.style.color=fmt==='legacy'?closestLeg(color).h:color;span.textContent=ch;return span}))}
 function update(){const chars=gradChars(document.getElementById('txt').value,stopColors);renderPreview(chars);currentCode=buildCode(chars);document.getElementById('code').textContent=currentCode||'Type a message to generate your code.';scheduleAutoSave()}
